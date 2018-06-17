@@ -68,6 +68,23 @@ document.querySelector('.restart').addEventListener('click', function(event) {
   document.querySelector('.moves').innerHTML = 0;
 });
 
+//clickTracker function on cards
+function clickTracker(gameState) {
+  gameState.cards.forEach(function(card) {
+    card.addEventListener('click', function(event) {
+      if (card.className === 'card match' || card.className === 'card open show') {
+        return;
+      }
+      card.className = "card open show";
+      gameState.moveCounter ++;
+      evaluateMatch(gameState, card);
+      displayMoveCounter(gameState);
+      moveCounterStar(gameState);
+      showWinningPage(gameState);
+    });
+  });
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
