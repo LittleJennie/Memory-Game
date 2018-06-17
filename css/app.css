@@ -51,6 +51,94 @@ h1 {
     margin: 0 0 3em;
 }
 
+/* Card flipping animation when card is clicked */
+@keyframes flipAnimation {
+  0% {
+  -webkit-transform: rotateY(90deg);
+  -moz-transform:    rotateY(90deg);
+  -ms-transform:     rotateY(90deg);
+  -o-transform:      rotateY(90deg);
+  transform:         rotateY(90deg);
+  }
+
+  100% {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform:    rotateY(0deg);
+  -ms-transform:     rotateY(0deg);
+  -o-transform:      rotateY(0deg);
+  transform:         rotateY(0deg);
+  }
+}
+
+/* Card flipping animation when card is clicked */
+@keyframes wrongFlipAnimation {
+  0% {
+  -webkit-transform: rotate(0deg);
+  -moz-transform:    rotate(0deg);
+  -ms-transform:     rotate(0deg);
+  -o-transform:      rotate(0deg);
+  transform:         rotate(0deg);
+  }
+
+  25% {
+  -webkit-transform: rotate(-20deg);
+  -moz-transform:    rotate(-20deg);
+  -ms-transform:     rotate(-20deg);
+  -o-transform:      rotate(-20deg);
+  transform:         rotate(-20deg);
+  }
+
+  50% {
+  -webkit-transform: rotate(-0deg);
+  -moz-transform:    rotate(-0deg);
+  -ms-transform:     rotate(-0deg);
+  -o-transform:      rotate(-0deg);
+  transform:         rotate(-0deg);
+  }
+
+  50% {
+  -webkit-transform: rotate(20deg);
+  -moz-transform:    rotate(20deg);
+  -ms-transform:     rotate(20deg);
+  -o-transform:      rotate(20deg);
+  transform:         rotate(20deg);
+  }
+
+  100% {
+  -webkit-transform: rotate(0deg);
+  -moz-transform:    rotate(0deg);
+  -ms-transform:     rotate(0deg);
+  -o-transform:      rotate(0deg);
+  transform:         rotate(0deg);
+  }
+}
+
+@keyframes correctFlipAnimation {
+  0% {
+  -webkit-transform: scale(0.7);
+  -moz-transform:    scale(0.7);
+  -ms-transform:     scale(0.7);
+  -o-transform:      scale(0.7);
+  transform:         scale(0.7);
+  }
+
+  0% {
+  -webkit-transform: scale(1.2);
+  -moz-transform:    scale(1.2);
+  -ms-transform:     scale(1.2);
+  -o-transform:      scale(1.2);
+  transform:         scale(1.2);
+  }
+
+  100% {
+  -webkit-transform: scale(1);
+  -moz-transform:    scale(1);
+  -ms-transform:     scale(1);
+  -o-transform:      scale(1);
+  transform:         scale(1);
+  }
+}
+
 .deck .card {
     height: 125px;
     width: 125px;
@@ -66,9 +154,9 @@ h1 {
 }
 
 .deck .card.open {
-    transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    animation: flipAnimation 1s;
 }
 
 .deck .card.show {
@@ -79,6 +167,12 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation: correctFlipAnimation 0.2s;
+}
+
+.deck .card.wrong {
+  background-color: red;
+  animation: wrongFlipAnimation 0.3s;
 }
 
 /*
@@ -101,6 +195,10 @@ h1 {
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
+}
+
+.fa-star {
+  color: #FF4500;
 }
 
 .score-panel .restart {
