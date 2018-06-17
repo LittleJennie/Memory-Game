@@ -49,7 +49,7 @@ function initGame() {
   let gameState = {
     moveCounter: 0,
     starCounter: 0,
-    matchedCounter: 1,
+    matchedCounter: 0,
     clickedCards: [],
     container: document.querySelector('.container'),
     winning: document.querySelector('.winning'),
@@ -57,8 +57,11 @@ function initGame() {
     moves: document.querySelector('.moves'),
     winning_stat_msg: "",
     winning_stat: document.querySelector('.winning_stat'),
+    minutes: 0,
+    seconds: 0,
   }
   clickTracker(gameState);
+  setTimer(gameState);
  }
 initGame();
 
@@ -80,7 +83,6 @@ function clickTracker(gameState) {
       evaluateMatch(gameState, card);
       displayMoveCounter(gameState);
       moveCounterStar(gameState);
-      showWinningPage(gameState);
     });
   });
 }
@@ -95,7 +97,6 @@ function evaluateMatch(gameState, card) {
       cardMatchTimeout(gameState, previousCard, card);
     } else {
       cardWrongTimeout(previousCard, card);
-      // cardNotMatchTimeout(previousCard, card);
     }
   }
 }
@@ -111,6 +112,8 @@ function cardMatchTimeout(gameState, previousCard, card) {
     previousCard.className = "card match";
     card.className = "card match";
     gameState.matchedCounter ++;
+    showWinningPage(gameState);
+    console.log (gameState.matchedCounter);
   }, 700);
 }
 
@@ -154,18 +157,35 @@ function moveCounterStar(gameState) {
   }
 }
 
+//create a timer
+function setTimer(gameState) {
+  setInterval(function(gameState) {
+    if (gameState.seconds >= 60) {
+      gameState.minutes ++;
+      gameState.seconds = 0;
+    }
+    gameState.seconds ++;
+    document.querySelector('.timer').innerText = `${gameState.minutes} m ${gameState.seconds} s`;
+  }, 1000, gameState);
+}
+
 //define showWinningPage function
 function showWinningPage(gameState) {
-  if (gameState.matchedCounter === 8) {
-    //display winning message
-    gameState.winning_stat_msg = `
-      With ${gameState.moveCounter} and ${gameState.starCounter} Stars.
+  setTimeout(function() {
+    if (gameState.matchedCounter === 8) {
+      //display winning message
+      gameState.winning_stat_msg = `
+        You finished the game in ${gameState.minutes} minutes and ${gameState.seconds} seconds.
 
-      Woooooo!`;
-    gameState.container.setAttribute('style', 'display: none');
-    gameState.winning.setAttribute('style', 'display: block');
-    gameState.winning_stat.innerText = gameState.winning_stat_msg;
-  }
+        With ${gameState.moveCounter} and ${gameState.starCounter} Stars.
+
+        Woooooo!`;
+      gameState.container.setAttribute('style', 'display: none');
+      gameState.winning.setAttribute('style', 'display: block');
+      gameState.winning_stat.innerText = gameState.winning_stat_msg;
+      clearInterval(setTimer(gameState));
+    }
+  }, 700)
 }
 
 //playAgain button
