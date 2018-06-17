@@ -155,6 +155,11 @@ function showWinningPage(gameState) {
     gameState.winning_stat.innerText = gameState.winning_stat_msg;
   }
 }
+
+//playAgain button
+document.querySelector('.playAgain').addEventListener('click', function(event) {
+  location.reload();
+});
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
