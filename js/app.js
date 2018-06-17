@@ -45,7 +45,6 @@ function initGame() {
   let cardHTML = shuffle(allCards).map(function(allcard) {
     return cardDeck(allcard);
   });
-  console.log(cardHTML);
   document.querySelector('.deck').innerHTML = cardHTML.join('');
   let gameState = {
     moveCounter: 0,
@@ -95,7 +94,8 @@ function evaluateMatch(gameState, card) {
     if (previousCard.firstElementChild.className === card.firstElementChild.className) {
       cardMatchTimeout(gameState, previousCard, card);
     } else {
-      cardNotMatchTimeout(previousCard, card);
+      cardWrongTimeout(previousCard, card);
+      // cardNotMatchTimeout(previousCard, card);
     }
   }
 }
@@ -119,6 +119,18 @@ function cardNotMatchTimeout(previousCard, card) {
   setTimeout(function() {
     previousCard.className = "card";
     card.className = "card";
+  }, 700);
+}
+
+//define cardNotMatchTimeout function
+function cardWrongTimeout(previousCard, card) {
+  setTimeout(function() {
+    previousCard.className = "card wrong show";
+    card.className = "card wrong show";
+    setTimeout(function() {
+      previousCard.className = "card";
+      card.className = "card";
+    }, 700);
   }, 700);
 }
 
