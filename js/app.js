@@ -41,6 +41,7 @@ function shuffle(array) {
 
 //create initGame function
 function initGame() {
+  document.querySelector('.moves').innerHTML = 0;
   let cardHTML = shuffle(allCards).map(function(allcard) {
     return cardDeck(allcard);
   });
