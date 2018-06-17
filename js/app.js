@@ -121,7 +121,25 @@ function cardNotMatchTimeout(previousCard, card) {
   }, 700);
 }
 
+//define displayMoveCounter function
+function displayMoveCounter(gameState) {
+  gameState.moves.innerHTML = gameState.moveCounter;
+}
 
+//define moveCounterStar function
+function moveCounterStar(gameState) {
+  if (gameState.moveCounter <= 16) {
+    gameState.starCounter = 3;
+  }
+  if (gameState.moveCounter > 16) {
+    document.getElementById('three-star').setAttribute('style', 'display: none');
+    gameState.starCounter = 2;
+  }
+  if (gameState.moveCounter > 32) {
+    document.getElementById('two-star').setAttribute('style', 'display: none');
+    gameState.starCounter = 1;
+  }
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
