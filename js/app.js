@@ -62,6 +62,12 @@ function initGame() {
  }
 initGame();
 
+//game restart button
+document.querySelector('.restart').addEventListener('click', function(event) {
+  initGame();
+  document.querySelector('.moves').innerHTML = 0;
+});
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
