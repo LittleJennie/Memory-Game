@@ -39,6 +39,28 @@ function shuffle(array) {
     return array;
 }
 
+//create initGame function
+function initGame() {
+  let cardHTML = shuffle(allCards).map(function(allcard) {
+    return cardDeck(allcard);
+  });
+  console.log(cardHTML);
+  document.querySelector('.deck').innerHTML = cardHTML.join('');
+  let gameState = {
+    moveCounter: 0,
+    starCounter: 0,
+    matchedCounter: 1,
+    clickedCards: [],
+    container: document.querySelector('.container'),
+    winning: document.querySelector('.winning'),
+    cards: document.querySelectorAll('.card'),
+    moves: document.querySelector('.moves'),
+    winning_stat_msg: "",
+    winning_stat: document.querySelector('.winning_stat'),
+  }
+  clickTracker(gameState);
+ }
+initGame();
 
 /*
  * set up the event listener for a card. If a card is clicked:
