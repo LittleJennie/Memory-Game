@@ -85,6 +85,43 @@ function clickTracker(gameState) {
   });
 }
 
+//evaluate matching status on clicked cards
+function evaluateMatch(gameState, card) {
+  if (gameState.clickedCards.length === 0) {
+    addOpenedCard(gameState, card);
+  } else {
+    let previousCard = gameState.clickedCards.pop();
+    if (previousCard.firstElementChild.className === card.firstElementChild.className) {
+      cardMatchTimeout(gameState, previousCard, card);
+    } else {
+      cardNotMatchTimeout(previousCard, card);
+    }
+  }
+}
+
+//define addOpenedCard function
+function addOpenedCard(gameState, card) {
+  gameState.clickedCards.push(card);
+}
+
+//define cardMatchTimeout function
+function cardMatchTimeout(gameState, previousCard, card) {
+  setTimeout(function() {
+    previousCard.className = "card match";
+    card.className = "card match";
+    gameState.matchedCounter ++;
+  }, 700);
+}
+
+//define cardNotMatchTimeout function
+function cardNotMatchTimeout(previousCard, card) {
+  setTimeout(function() {
+    previousCard.className = "card";
+    card.className = "card";
+  }, 700);
+}
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
