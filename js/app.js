@@ -12,6 +12,11 @@
   'fa-bomb','fa-bomb',
  ];
 
+ //create html function for card deck
+ function cardDeck(allcard) {
+  return `<li class="card"><i class="fa ${allcard}"></i></li>`;
+ }
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
