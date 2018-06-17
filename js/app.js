@@ -140,6 +140,20 @@ function moveCounterStar(gameState) {
     gameState.starCounter = 1;
   }
 }
+
+//define showWinningPage function
+function showWinningPage(gameState) {
+  if (gameState.matchedCounter === 8) {
+    //display winning message
+    gameState.winning_stat_msg = `
+      With ${gameState.moveCounter} and ${gameState.starCounter} Stars.
+
+      Woooooo!`;
+    gameState.container.setAttribute('style', 'display: none');
+    gameState.winning.setAttribute('style', 'display: block');
+    gameState.winning_stat.innerText = gameState.winning_stat_msg;
+  }
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
