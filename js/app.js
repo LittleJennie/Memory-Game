@@ -39,6 +39,7 @@ function shuffle(array) {
     return array;
 }
 
+let timerId;
 //create initGame function
 function initGame() {
   document.querySelector('.moves').innerHTML = 0;
@@ -61,13 +62,16 @@ function initGame() {
     seconds: 0,
   }
   clickTracker(gameState);
-  setTimer(gameState);
+  document.getElementById('three-star').setAttribute('style', 'color: #FF4500');
+  document.getElementById('two-star').setAttribute('style', 'color: #FF4500');
+  return setTimer(gameState);
  }
-initGame();
+timerId = initGame();
 
 //game restart button
 document.querySelector('.restart').addEventListener('click', function(event) {
-  initGame();
+  clearInterval(timerId);
+  timerId = initGame();
   document.querySelector('.moves').innerHTML = 0;
 });
 
@@ -148,18 +152,18 @@ function moveCounterStar(gameState) {
     gameState.starCounter = 3;
   }
   if (gameState.moveCounter > 16) {
-    document.getElementById('three-star').setAttribute('style', 'display: none');
+    document.getElementById('three-star').setAttribute('style', 'color: white');
     gameState.starCounter = 2;
   }
   if (gameState.moveCounter > 32) {
-    document.getElementById('two-star').setAttribute('style', 'display: none');
+    document.getElementById('two-star').setAttribute('style', 'color: white');
     gameState.starCounter = 1;
   }
 }
 
 //create a timer
 function setTimer(gameState) {
-  setInterval(function(gameState) {
+  return setInterval(function(gameState) {
     if (gameState.seconds >= 60) {
       gameState.minutes ++;
       gameState.seconds = 0;
